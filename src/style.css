@@ -1,7 +1,14 @@
 body {
     background-color: #ECEBE4;
+    height: fit-content;
     margin: 0;
+    display: flex;
+    flex-direction: column;
     font-family: "Open Sans", Calibri, Tahoma, sans-serif;
+}
+
+footer {
+    margin-top: auto;
 }
 
 h1, h2, button, ul {
@@ -45,6 +52,16 @@ input[type="range"]::-webkit-slider-thumb {
     justify-content: center;
 }
 
+.tools {
+    background-color: rgba(78, 2, 80, 0.1);
+    justify-content: start;
+    width: 20%;
+}
+
+.history {
+    width: 20%;
+}
+
 .selected-time {
     margin-top: 20px;
     margin-bottom: 20px;
@@ -52,7 +69,16 @@ input[type="range"]::-webkit-slider-thumb {
 }
 
 .tree {
-    width: fit-content;
+    position: relative;
+    overflow: hidden;
+    padding: 10px;
+    margin: 0;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    background-size: contain;
+    background-image: url("assets/tree.png") ;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
 a {
@@ -63,7 +89,22 @@ a {
 .logo {
     font-size: xx-large;
     color: #ECEBE4;
+    display: flex;
+    justify-content: baseline;
+    align-items: center;
     margin: 5px;
+}
+
+.logo::after {
+    display: block;
+    height: 1em;
+    margin-left: 5px;
+    aspect-ratio: 1 / 1;
+    content: '';
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-image: url("assets/tree.png");
+    background-position: center;
 }
 
 .legals {
@@ -72,14 +113,69 @@ a {
     margin: 5px;
 }
 
-.logo:hover {
+.header-link {
+    color: #ECEBE4;
+}
+
+.header-link:hover {
     color: #bebdb6;
+}
+
+.footer-svg {
+    width: 20px;
+    height: auto;
+    display: inline-block !important;
+}
+
+.header-svg {
+    width: 30px;
+    height: auto;
+    display: inline-block !important;
 }
 
 .header {
     background-color: #335145;
     height: 60px;
     width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.header > .logo {
+    margin-left: 25px;
+}
+
+.header_menu {
+    display: flex;
+}
+
+.contacts > ul {
+    margin: 0 5px 0 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+}
+
+.contacts li {
+    margin: 5px 0 0 5px;
+}
+
+.menu li {
+    margin: 5px;
+    padding: 10px 10px;
+    display: inline-block;
+    text-align: center;
+    font-size: large;
+}
+
+.menu > ul {
+    margin: 0 5px 0 0;
+    padding: 0;
+    display: flex;
+    justify-content: baseline;
+    flex-direction: row;
 }
 
 .footer {
@@ -99,12 +195,15 @@ a {
     display: flex;
     flex-wrap: wrap;
     flex-direction: row-reverse;
+    justify-content: space-between;
+    height: 100%;
+    min-height: 600px;
 }
 
 .column {
     float: left;
     display: flex;
-    justify-content: center;
+    justify-content: start;
     flex-direction: column;
 }
 
@@ -112,15 +211,15 @@ a {
     display: flex;
     justify-content: center;
     flex-direction: row;
+    margin: 0 5px 0 5px;
 }
 
 .selector_tree-btn {
     position: relative;
-    width: 10%;
     height: auto;
     overflow: hidden;
     margin: 0;
-    width: 50px;
+    width: 70px;
     background-size: contain;
     background-image: url("assets/next.png") ;
     background-repeat: no-repeat;
@@ -133,6 +232,7 @@ a {
     background-color: rgba(78, 2, 80, 0.3);
     border-radius: 50%;
     display: inline-block;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 }
 
 .records-panel > h1 {
@@ -142,8 +242,8 @@ a {
 
 .records-panel {
     background-color: rgba(78, 2, 80, 0.1);
-    border-radius: 15px;
-    max-height: 800px;
+    border-radius: 0px;
+    height: 100%;
     overflow: scroll;
 }
 
@@ -172,17 +272,47 @@ a {
     border-radius: 15px;
     width: 100%;
     display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(4, 1fr);
     grid-gap: 1rem;
+    justify-items: center;
+    align-items: center;
+}
+
+.field > div {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.field .empty {
+    margin: 0;
+    padding: 0;
+    width: 15%;
+    height: 15%;
+    border-radius: 50%;
+    background-color: rgba(48, 116, 115, 0.6);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 }
 
 .forest {
+    margin: 15px 0 15px 0;
+    display: flex;
+    justify-content: center;
+    width: 50%;
+    padding: 15px;
+    grid-template-columns: repeat(4, 1fr);
+}
+
+    
+.footer_logo {
     display: flex;
     justify-content: center;
 }
-
-@media screen and (max-width: 992px) {
-}
-
 @media screen and (max-width: 600px) {
     
     .header_menu {
@@ -191,6 +321,8 @@ a {
 
     .forest {
         margin-top: 20px;
+        width: 100%;
+        padding: 0;
     }
 
     .openbtn {
@@ -203,8 +335,14 @@ a {
         justify-content: center;
     }
 
+    .tools {
+        background-color: inherit;
+    }
+
     .content {
+        height: auto;
         flex-direction: column;
+        min-height: fit-content;
     }
     
     .field {
@@ -215,14 +353,20 @@ a {
     .records-panel {
         margin: 10px;
         margin-top: 10px;
+        max-height: 800px;
+        border-radius: 15px;
+    }
+
+    .field > div {
+        min-width: 50px;
+    }
+
+    .history {
+        width: auto;
     }
 
     .column {
         width: 100%;
-    }
-    
-    .footer_logo {
-        display: flex;
         justify-content: center;
     }
 }
