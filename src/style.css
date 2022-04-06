@@ -1,0 +1,103 @@
+@import "./styles/logo.css";
+@import "./styles/footer.css";
+@import "./styles/header.css";
+@import "./styles/history.css";
+@import "./styles/forest.css";
+@import "./styles/tools.css";
+
+body, html {
+    background-color: #ECEBE4;
+    margin: 0;
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    font-family: "Open Sans", Calibri, Tahoma, sans-serif;
+}
+
+footer {
+    position: absolute;
+    bottom: 0;
+    height: 107px;
+    width: 100%;
+    bottom: 0;
+}
+
+h1, h2, button, ul {
+    margin: 0;
+    padding: 0;
+    text-align:center;
+    background: none;
+    border: none;
+    list-style-type: none;
+}
+
+input[type="range"] {
+    -webkit-appearance: none;
+    align-content: center;
+    height: 7px;
+    width: 100%;
+    background: #307473;
+    border-radius: 5px;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    background: black;
+    cursor: ew-resize;
+    box-shadow: 0 0 2px 0 #555;
+    transition: background .3s ease-in-out;
+  }
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.content {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row-reverse;
+    padding-bottom: 107px;
+    justify-content: space-between;
+}
+
+.column {
+    float: left;
+    display: flex;
+    justify-content: start;
+    flex-direction: column;
+}
+
+@media screen and (max-width: 600px) {
+    
+
+    .forest {
+        margin-top: 20px;
+        width: 100%;
+        padding: 0;
+    }
+
+    .content {
+        height: auto;
+        flex-direction: column;
+        min-height: fit-content;
+    }
+    
+    .field {
+        margin: 15px;
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    .field > div {
+        min-width: 50px;
+    }
+
+    .column {
+        width: 100%;
+        justify-content: center;
+    }
+}
