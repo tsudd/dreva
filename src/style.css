@@ -5,7 +5,8 @@
 @import "./styles/forest.css";
 @import "./styles/tools.css";
 
-body, html {
+body,
+html {
     background-color: #ECEBE4;
     margin: 0;
     position: relative;
@@ -23,10 +24,13 @@ footer {
     bottom: 0;
 }
 
-h1, h2, button, ul {
+h1,
+h2,
+button,
+ul {
     margin: 0;
     padding: 0;
-    text-align:center;
+    text-align: center;
     background: none;
     border: none;
     list-style-type: none;
@@ -50,7 +54,13 @@ input[type="range"]::-webkit-slider-thumb {
     cursor: ew-resize;
     box-shadow: 0 0 2px 0 #555;
     transition: background .3s ease-in-out;
-  }
+}
+
+.section-head {
+    font-size: x-large;
+    font-weight: bold;
+    text-align: center;
+}
 
 a {
     text-decoration: none;
@@ -73,7 +83,7 @@ a {
 }
 
 @media screen and (max-width: 600px) {
-    
+
 
     .forest {
         margin-top: 20px;
@@ -86,13 +96,13 @@ a {
         flex-direction: column;
         min-height: fit-content;
     }
-    
+
     .field {
         margin: 15px;
         grid-template-columns: repeat(4, 1fr);
     }
 
-    .field > div {
+    .field>div {
         min-width: 50px;
     }
 
