@@ -12,7 +12,6 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap"
         rel="stylesheet">
-    <script src='main.js'></script>
 </head>
 
 <body>
@@ -44,27 +43,28 @@
                         </svg></a></li>
             </ul>
         </nav>
-        <button class="openbtn"><img class="overmenu" src="./assets/bar.png" width="60" height="60"></button>
+        <button class="openbtn" id="open-overlay"><img class="overmenu" src="./assets/bar.png" width="60"
+                height="60"></button>
     </header>
     <main class="content">
         <section class="tools column">
             <div class="timer">
                 <p class="timer-head section-head">Timer</p>
-                <div class="slider"><input type="range" min="0" max="90" value="25"></div>
-                <p class="selected-time">25</p>
-                <div class="timer-btn"><button class="plant-btn">Plant!</button></div>
+                <div class="slider"><input id="timer-slider" type="range" min="1" max="90" value="25"></div>
+                <p class="selected-time" id="timing">25</p>
+                <div class="timer-btn"><button id="plant-btn" class="plant-btn">Plant!</button></div>
             </div>
             <div class="tree-selector">
                 <p class="section-head">Tree selector</p>
                 <div class="selector">
-                    <div class="next-btn selector_tree-btn"><button></button></div>
+                    <div class="next-btn selector_tree-btn"><button id="next-tree-button"></button></div>
                     <div class="tree selector_tree"></div>
-                    <div class="prev-btn selector_tree-btn"><button></button></div>
+                    <div class="prev-btn selector_tree-btn"><button id="prev-tree-button"></button></div>
                 </div>
             </div>
         </section>
         <section class="forest">
-            <div class="field">
+            <div class="field" id="field">
                 <div>
                     <div class="empty"></div>
                 </div>
@@ -118,7 +118,7 @@
         <section class="history">
             <div class="records-panel">
                 <p class="section-head">Last seeds</p>
-                <ul>
+                <ul id="history">
                     <li>Record 1</li>
                     <li>Record 2</li>
                     <li>Record 3</li>
@@ -151,6 +151,9 @@
         </div>
         <p class="legals">Dreva Inc. 2022. All rights reserved</p>
     </footer>
+    <script src='js/consts.js'></script>
+    <script src='js/timer.js'></script>
+    <script src='main.js'></script>
 </body>
 
 </html>
