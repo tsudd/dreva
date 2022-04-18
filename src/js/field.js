@@ -27,8 +27,12 @@ class Field {
         this.element = element
     }
 
-    setTree(tree) {
-        this.selectedTree = tree
+    setNextTree() {
+        if (++this.selectedTree >= TREES.length) this.selectedTree = 0
+    }
+
+    setPrevTree() {
+        if (--this.selectedTree < 0) this.selectedTree = TREES.length - 1
     }
 
     hasFreePlace() {
@@ -53,8 +57,9 @@ class Field {
         let seedPlace = inds[Math.floor(Math.random() * inds.length)]
         this.trees[seedPlace] = GROWING_TREE
         let place = this.element.querySelector(`#place${seedPlace}`)
-        place.classList.remove(EMPTY_PLACE_SELECTOR)
+        place.className = ''
         place.classList.add(GROWING_TREE_SELECTOR)
+        place.classList.add(TREE_SELECTOR)
         place.classList.add(this.getTree())
         return seedPlace
     }
@@ -65,7 +70,20 @@ class Field {
 
     setGrowenTree(index) {
         if (index < 0) return
+        this.trees[index] = GROWEN_TREE
         let place = this.element.querySelector(`#place${index}`)
         place.classList.remove(GROWING_TREE_SELECTOR)
+    }
+
+    deleteSeed() {
+        for (let i = 0; i < this.trees.length; i++) {
+            if (this.trees[i] == GROWING_TREE) {
+                this.trees[i] = FREE_PLACE
+                let place = this.element.querySelector(`#place${i}`)
+                place.className = ''
+                place.classList.add(EMPTY_PLACE_SELECTOR)
+                return
+            }
+        }
     }
 }

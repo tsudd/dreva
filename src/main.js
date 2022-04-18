@@ -12,6 +12,7 @@ const timeSlider = document.querySelector('#timer-slider')
 const nextTreeButton = document.querySelector('#next-tree-button')
 const prevTreeButton = document.querySelector('#prev-tree-button')
 const plantButton = document.querySelector('#plant-btn')
+const selectedTreeLabel = document.querySelector('#selected-tree')
 
 // global main objects
 const timer = new CustomTimer(timerLabel);
@@ -57,6 +58,7 @@ toggleMode = () => {
         plantButton.classList.remove("plant-btn__stop")
         plantButton.innerHTML = PLANT_BUTTON_LABEL
         timer.stopTimer()
+        forest.deleteSeed()
     }
 }
 
@@ -65,7 +67,21 @@ treeHasGrowen = (e) => {
     toggleMode()
 }
 
+selectNextTree = (e) => {
+    selectedTreeLabel.classList.remove(forest.getTree())
+    forest.setNextTree()
+    selectedTreeLabel.classList.add(forest.getTree())
+}
+
+selectPrevTree = (e) => {
+    selectedTreeLabel.classList.remove(forest.getTree())
+    forest.setPrevTree()
+    selectedTreeLabel.classList.add(forest.getTree())
+}
+
 // listeners
+nextTreeButton.addEventListener("click", selectNextTree)
+prevTreeButton.addEventListener("click", selectPrevTree)
 document.addEventListener("treeHasGrowen", treeHasGrowen)
 timeSlider.addEventListener("input", handleTimerChange)
 plantButton.addEventListener("click", handlePlantTree)
