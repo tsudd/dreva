@@ -10,7 +10,7 @@ class CustomTimer {
         this.timeLong = time
     }
 
-    startTimer() {
+    startTimer(tree) {
         let distance = this.timeLong * 60
         this.interval = setInterval(() => {
             let minutes = Math.floor(distance / 60);
@@ -21,15 +21,21 @@ class CustomTimer {
 
             this.labelElement.innerHTML = `${minutes}<span class="timer-seconds">${seconds}</span>`
             if (--distance < 0) {
-                clearInterval(this.interval)
                 this.success = true
                 this.labelElement.innerHTML = this.timeLong
+                let e = new CustomEvent("treeHasGrowen", {
+                    detail: {
+                        tree: tree
+                    }
+                })
+                document.dispatchEvent(e)
+                clearInterval(this.interval)
             }
         }, 1000)
     }
 
     stopTimer() {
         clearInterval(this.interval)
-        this.labelElement.innerHTML(this.timeLong)
+        this.labelElement.innerHTML = this.timeLong
     }
 }

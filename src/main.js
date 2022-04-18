@@ -15,6 +15,7 @@ const plantButton = document.querySelector('#plant-btn')
 
 // global main objects
 const timer = new CustomTimer(timerLabel);
+const forest = new Field(field)
 let treeGrowingMode = false
 let selectedTree = 0
 
@@ -28,7 +29,14 @@ handleTimerChange = (e) => {
 handlePlantTree = (e) => {
     toggleMode()
     if (treeGrowingMode) {
-        timer.startTimer()
+        let growing = -1
+        if (!forest.hasFreePlace()) {
+            let ans = confirm("Forest is full. Continue without planting a new tree?")
+            if (!ans) return
+        } else {
+            growing = forest.plantSeed()
+        }
+        timer.startTimer(growing)
     } else {
 
     }
@@ -52,10 +60,12 @@ toggleMode = () => {
     }
 }
 
-treeHasGrowen = () => {
-
+treeHasGrowen = (e) => {
+    forest.setGrowenTree(e.detail.tree)
+    toggleMode()
 }
 
 // listeners
+document.addEventListener("treeHasGrowen", treeHasGrowen)
 timeSlider.addEventListener("input", handleTimerChange)
 plantButton.addEventListener("click", handlePlantTree)

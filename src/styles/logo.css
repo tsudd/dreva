@@ -5,6 +5,7 @@
     justify-content: baseline;
     align-items: center;
     margin: 5px;
+    margin-left: 35px;
 }
 
 .logo:hover {
