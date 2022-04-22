@@ -21,9 +21,10 @@
     font-size: x-small;
     color: #ECEBE4;
     margin: 5px;
+    font-weight: bold;
 }
 
-.contacts > ul {
+.contacts>ul {
     margin: 0 5px 0 0;
     padding: 0;
     display: flex;
@@ -34,6 +35,5 @@
 .contacts li {
     margin: 5px 0 0 5px;
 }
-@media screen and (max-width: 600px) {
 
-}
+@media screen and (max-width: 600px) {}
