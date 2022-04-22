@@ -13,10 +13,13 @@ const nextTreeButton = document.querySelector('#next-tree-button')
 const prevTreeButton = document.querySelector('#prev-tree-button')
 const plantButton = document.querySelector('#plant-btn')
 const selectedTreeLabel = document.querySelector('#selected-tree')
+const totalTimeLabel = document.querySelector('#total-time')
+const historySection = document.querySelector('#history')
 
 // global main objects
 const timer = new CustomTimer(timerLabel);
 const forest = new Field(field)
+const history = new History(historySection, totalTimeLabel)
 let treeGrowingMode = false
 let selectedTree = 0
 
@@ -64,6 +67,7 @@ toggleMode = () => {
 
 treeHasGrowen = (e) => {
     forest.setGrowenTree(e.detail.tree)
+    history.addHistory(e.detail.time)
     toggleMode()
 }
 
@@ -85,3 +89,16 @@ prevTreeButton.addEventListener("click", selectPrevTree)
 document.addEventListener("treeHasGrowen", treeHasGrowen)
 timeSlider.addEventListener("input", handleTimerChange)
 plantButton.addEventListener("click", handlePlantTree)
+
+
+//ONLY FOR TEST PURPOSES
+window.onkeydown = (gfg) => {
+    if (gfg.keyCode === 32) {
+        if (!treeGrowingMode) {
+            return
+        }
+        forest.setGrowenTree(forest.selectedTree)
+        history.addHistory(timer.timeLong)
+        toggleMode()
+    }
+}

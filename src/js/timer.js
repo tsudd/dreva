@@ -25,7 +25,8 @@ class CustomTimer {
                 this.labelElement.innerHTML = this.timeLong
                 let e = new CustomEvent("treeHasGrowen", {
                     detail: {
-                        tree: tree
+                        tree: tree,
+                        time: this.timeLong,
                     }
                 })
                 document.dispatchEvent(e)
