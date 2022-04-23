@@ -5,6 +5,7 @@ const body = document.querySelector('body')
 const field = document.querySelector('#field')
 const historyRecords = document.querySelector('#history')
 const timerLabel = document.querySelector('#timing')
+const boxes = document.querySelectorAll('.box')
 
 // buttons, inputs
 const openOverlayButton = document.querySelector('#open-overlay')
@@ -21,10 +22,47 @@ const timer = new CustomTimer(timerLabel);
 const forest = new Field(field)
 const history = new History(historySection, totalTimeLabel)
 let treeGrowingMode = false
-let selectedTree = 0
 
 
 // functions
+dragStart = (e) => {
+    e.dataTransfer.setData('text/plain', e.target.id)
+    e.dataTransfer.setData('text/html', e.target.outerHTML)
+    setTimeout(() => {
+        e.target.classList.add('hide');
+    }, 0);
+}
+
+dragEnd = (e) => {
+    e.target.classList.remove('hide')
+}
+
+dragEnter = (e) => {
+    e.preventDefault();
+    e.target.classList.add('drag-over');
+}
+
+dragOver = (e) => {
+    e.preventDefault();
+    e.target.classList.add('drag-over');
+}
+
+dragLeave = (e) => {
+    e.target.classList.remove('drag-over');
+}
+
+drop = (e, el) => {
+    e.preventDefault();
+    e.target.classList.remove('drag-over');
+    const id = e.dataTransfer.getData('text/plain');
+    const draggable = document.getElementById(id);
+    const initialPlace = draggable.parentNode;
+    const targetChild = el.firstElementChild
+    el.innerHTML = ''
+    el.appendChild(draggable)
+    initialPlace.appendChild(targetChild)
+}
+
 handleTimerChange = (e) => {
     timer.setTimer(e.target.value)
     timerLabel.innerHTML = e.target.value
@@ -66,8 +104,10 @@ toggleMode = () => {
 }
 
 treeHasGrowen = (e) => {
-    forest.setGrowenTree(e.detail.tree)
+    let tree = forest.setGrowenTree(e.detail.tree)
     history.addHistory(e.detail.time)
+    tree.addEventListener('dragstart', dragStart)
+    tree.addEventListener('dragend', dragEnd)
     toggleMode()
 }
 
@@ -89,7 +129,12 @@ prevTreeButton.addEventListener("click", selectPrevTree)
 document.addEventListener("treeHasGrowen", treeHasGrowen)
 timeSlider.addEventListener("input", handleTimerChange)
 plantButton.addEventListener("click", handlePlantTree)
-
+boxes.forEach(box => {
+    box.addEventListener('dragenter', dragEnter)
+    box.addEventListener('dragover', dragOver);
+    box.addEventListener('dragleave', dragLeave);
+    box.setAttribute('ondrop', "drop(event,this)")
+})
 
 //ONLY FOR TEST PURPOSES
 window.onkeydown = (gfg) => {
@@ -97,8 +142,20 @@ window.onkeydown = (gfg) => {
         if (!treeGrowingMode) {
             return
         }
-        forest.setGrowenTree(forest.selectedTree)
-        history.addHistory(timer.timeLong)
-        toggleMode()
+        console.log("nice")
+        let g = -1
+        forest.trees.forEach((tree, ind) => {
+            if (tree == GROWING_TREE) {
+                g = ind
+            }
+        })
+        let e = new CustomEvent("treeHasGrowen", {
+            detail: {
+                tree: g,
+                time: timer.timeLong,
+            }
+        })
+        document.dispatchEvent(e)
+        timer.stopTimer()
     }
 }

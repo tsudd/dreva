@@ -73,6 +73,7 @@ class Field {
         this.trees[index] = GROWEN_TREE
         let place = this.element.querySelector(`#place${index}`)
         place.classList.remove(GROWING_TREE_SELECTOR)
+        return place
     }
 
     deleteSeed() {

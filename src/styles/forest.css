@@ -1,3 +1,12 @@
+.hide {
+    display: none;
+}
+
+.drag-over {
+    background-color: rgba(48, 116, 115, 0.6);
+    border-radius: 5px;
+}
+
 .klen {
     background-image: url("../assets/klen.png");
 }
