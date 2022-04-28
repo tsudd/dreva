@@ -2,6 +2,10 @@
     display: none;
 }
 
+.hovered-tree {
+    box-shadow: 6px 6px 6px #ECEBE4, 6px 6px 6px #ECEBE4;
+}
+
 .drag-over {
     background-color: rgba(48, 116, 115, 0.6);
     border-radius: 5px;

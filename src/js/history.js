@@ -25,6 +25,7 @@ class History {
         this.totalElement.innerHTML = this.total.toString()
         this.listElement.appendChild(li)
         this.addRecord(long, date)
+        return li
     }
 
     addRecord(long, time) {

@@ -103,12 +103,32 @@ toggleMode = () => {
     }
 }
 
-treeHasGrowen = (e) => {
-    let tree = forest.setGrowenTree(e.detail.tree)
-    history.addHistory(e.detail.time)
+treeHasGrowen = (ee) => {
+    let tree = forest.setGrowenTree(ee.detail.tree)
+    let record = history.addHistory(ee.detail.time)
+
     tree.addEventListener('dragstart', dragStart)
     tree.addEventListener('dragend', dragEnd)
+
+    handlePoint = (e) => {
+        handleRecordPoint(tree)
+    }
+
+    handleLeave = (e) => {
+        handleRecordLeave(tree)
+    }
+
+    record.addEventListener('mouseover', handlePoint)
+    record.addEventListener('mouseleave', handleLeave)
     toggleMode()
+}
+
+handleRecordPoint = (tree) => {
+    tree.classList.add(HOVERED_TREE_SELECTOR)
+}
+
+handleRecordLeave = (tree) => {
+    tree.classList.remove(HOVERED_TREE_SELECTOR)
 }
 
 selectNextTree = (e) => {
