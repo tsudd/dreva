@@ -16,6 +16,8 @@ const plantButton = document.querySelector('#plant-btn')
 const selectedTreeLabel = document.querySelector('#selected-tree')
 const totalTimeLabel = document.querySelector('#total-time')
 const historySection = document.querySelector('#history')
+const openSidebarButton = document.querySelector('#open-sidebar')
+const closeSidebarButton = document.querySelector('#closebtn')
 
 // global main objects
 const timer = new CustomTimer(timerLabel);
@@ -143,6 +145,15 @@ selectPrevTree = (e) => {
     selectedTreeLabel.classList.add(forest.getTree())
 }
 
+openOverlay = (e) => {
+    console.log(window.innerWidth * 0.8)
+    document.getElementById("sidepan").style.width = Math.round(document.documentElement.clientWidth * 0.8).toString() + "px"
+}
+
+closeOverlay = (e) => {
+    document.getElementById("sidepan").style.width = 0
+}
+
 // listeners
 nextTreeButton.addEventListener("click", selectNextTree)
 prevTreeButton.addEventListener("click", selectPrevTree)
@@ -155,6 +166,8 @@ boxes.forEach(box => {
     box.addEventListener('dragleave', dragLeave);
     box.setAttribute('ondrop', "drop(event,this)")
 })
+openSidebarButton.addEventListener('click', openOverlay)
+closeSidebarButton.addEventListener('click', closeOverlay)
 
 //ONLY FOR TEST PURPOSES
 window.onkeydown = (gfg) => {

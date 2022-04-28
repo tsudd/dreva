@@ -21,7 +21,7 @@
     justify-content: space-between;
 }
 
-.header > .logo {
+.header>.logo {
     margin-left: 25px;
 }
 
@@ -37,7 +37,7 @@
     font-size: large;
 }
 
-.menu > ul {
+.menu>ul {
     margin: 0 5px 0 0;
     padding: 0;
     display: flex;
@@ -54,6 +54,11 @@
 @media screen and (max-width: 600px) {
     .header_menu {
         display: none;
+    }
+
+    .sidebar-link {
+        width: 50px;
+        color: #818181;
     }
 
     .header {

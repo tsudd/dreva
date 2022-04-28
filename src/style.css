@@ -82,6 +82,10 @@ a {
     flex-direction: column;
 }
 
+.sidepanel {
+    display: none;
+}
+
 @media screen and (max-width: 600px) {
 
 
@@ -109,5 +113,40 @@ a {
     .column {
         width: 100%;
         justify-content: center;
+    }
+
+    .sidepanel {
+        height: calc(100vh - 10px);
+        width: 0;
+        position: fixed;
+        z-index: 1;
+        top: 0;
+        right: 0;
+        background-color: #ECEBE4;
+        overflow: hidden;
+        padding-top: 10pxpx;
+        padding-bottom: 20px;
+        transition: 0.5s;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .sidepanel a {
+        padding: 8px 8px 8px 32px;
+        text-decoration: none;
+        font-size: 55px;
+        color: #818181;
+        display: block;
+        transition: 0.3s;
+    }
+
+    .sidepanel .closebtn {
+        position: absolute;
+        top: 0;
+        right: 25px;
+        font-size: 72px;
+        margin-left: 50px;
+        text-align: start;
     }
 }
