@@ -1,3 +1,4 @@
+import { UserAuth } from "./firebase.js"
 //buttons inputs
 
 const logInButton = document.querySelector("#login-btn")
@@ -11,14 +12,25 @@ const closeSidebarButton = document.querySelector('#closebtn')
 
 registerForm.style.display = "none"
 
+// global objects
+const userAuth = new UserAuth()
+
 
 // functions
-openOverlay = (e) => {
+const openOverlay = (e) => {
     document.getElementById("sidepan").style.width = Math.round(document.documentElement.clientWidth * 0.8).toString() + "px"
 }
 
-closeOverlay = (e) => {
+const closeOverlay = (e) => {
     document.getElementById("sidepan").style.width = 0
+}
+
+const validateEmail = (mail) => {
+    if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail)) {
+        return (true)
+    }
+    alert("You have entered an invalid email address!")
+    return (false)
 }
 
 //listeners
@@ -36,12 +48,32 @@ registerToggle.addEventListener("click", (e) => {
     registerForm.style.display = "block"
 })
 
-logInButton.addEventListener("click", (e) => {
-    console.log(228)
+loginForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    let email = loginForm["email"].value
+    if (!validateEmail(email)) {
+        return false
+    }
+    let password = loginForm["password"].value
+    if (password.length < 8) {
+        alert("Password is too short!")
+        return false
+    }
+    userAuth.logInUser({ email: email, password: password })
 })
 
-registerButton.addEventListener("click", (e) => {
-    console.log(228)
+registerForm, addEventListener("submit", (e) => {
+    e.preventDefault();
+    let email = registerForm["email"].value
+    if (!validateEmail(email)) {
+        return false
+    }
+    let password = registerForm["password"].value
+    if (password.length < 8) {
+        alert("Password is too short!")
+        return false
+    }
+    userAuth.signUpUser({ email: email, password: password })
 })
 
 openSidebarButton.addEventListener('click', openOverlay)
