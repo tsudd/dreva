@@ -146,7 +146,6 @@ selectPrevTree = (e) => {
 }
 
 openOverlay = (e) => {
-    console.log(window.innerWidth * 0.8)
     document.getElementById("sidepan").style.width = Math.round(document.documentElement.clientWidth * 0.8).toString() + "px"
 }
 

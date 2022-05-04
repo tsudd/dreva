@@ -4,6 +4,7 @@
 @import "./styles/history.css";
 @import "./styles/forest.css";
 @import "./styles/tools.css";
+@import "./styles/auth.css";
 
 body,
 html {

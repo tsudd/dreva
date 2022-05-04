@@ -4,8 +4,13 @@ import { getFirestore, collection, getDocs } from "https://www.gstatic.com/fireb
 const app = initializeApp(FIREBASE_CONFIG)
 const db = getFirestore(app)
 
+
 const query = await getDocs(collection(db, "test"));
 query.forEach((doc) => {
     console.log(`${doc.id} => ${doc.data()}`);
     console.log(doc.data())
 });
+
+class UserAuth {
+
+}
