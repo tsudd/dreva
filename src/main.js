@@ -27,7 +27,7 @@ let treeGrowingMode = false
 
 
 // functions
-dragStart = (e) => {
+const dragStart = (e) => {
     e.dataTransfer.setData('text/plain', e.target.id)
     e.dataTransfer.setData('text/html', e.target.outerHTML)
     setTimeout(() => {
@@ -35,25 +35,25 @@ dragStart = (e) => {
     }, 0);
 }
 
-dragEnd = (e) => {
+const dragEnd = (e) => {
     e.target.classList.remove('hide')
 }
 
-dragEnter = (e) => {
+const dragEnter = (e) => {
     e.preventDefault();
     e.target.classList.add('drag-over');
 }
 
-dragOver = (e) => {
+const dragOver = (e) => {
     e.preventDefault();
     e.target.classList.add('drag-over');
 }
 
-dragLeave = (e) => {
+const dragLeave = (e) => {
     e.target.classList.remove('drag-over');
 }
 
-drop = (e, el) => {
+const drop = (e, el) => {
     e.preventDefault();
     e.target.classList.remove('drag-over');
     const id = e.dataTransfer.getData('text/plain');
@@ -65,12 +65,12 @@ drop = (e, el) => {
     initialPlace.appendChild(targetChild)
 }
 
-handleTimerChange = (e) => {
+const handleTimerChange = (e) => {
     timer.setTimer(e.target.value)
     timerLabel.innerHTML = e.target.value
 }
 
-handlePlantTree = (e) => {
+const handlePlantTree = (e) => {
     toggleMode()
     if (treeGrowingMode) {
         let growing = -1
@@ -86,7 +86,7 @@ handlePlantTree = (e) => {
     }
 }
 
-toggleMode = () => {
+const toggleMode = () => {
     treeGrowingMode = !treeGrowingMode
     if (treeGrowingMode) {
         timeSlider.disabled = true;
@@ -105,51 +105,45 @@ toggleMode = () => {
     }
 }
 
-treeHasGrowen = (ee) => {
+const treeHasGrowen = (ee) => {
     let tree = forest.setGrowenTree(ee.detail.tree)
     let record = history.addHistory(ee.detail.time)
 
     tree.addEventListener('dragstart', dragStart)
     tree.addEventListener('dragend', dragEnd)
 
-    handlePoint = (e) => {
-        handleRecordPoint(tree)
-    }
-
-    handleLeave = (e) => {
-        handleRecordLeave(tree)
-    }
-
-    record.addEventListener('mouseover', handlePoint)
-    record.addEventListener('mouseleave', handleLeave)
+    record.addEventListener('mouseover', (e) => handleRecordPoint(tree))
+    record.addEventListener('mouseleave', (e) => handleRecordLeave(tree))
     toggleMode()
+    alert("Tree has growen!")
 }
 
-handleRecordPoint = (tree) => {
+const handleRecordPoint = (tree) => {
+    console.log(228)
     tree.classList.add(HOVERED_TREE_SELECTOR)
 }
 
-handleRecordLeave = (tree) => {
+const handleRecordLeave = (tree) => {
     tree.classList.remove(HOVERED_TREE_SELECTOR)
 }
 
-selectNextTree = (e) => {
+const selectNextTree = (e) => {
     selectedTreeLabel.classList.remove(forest.getTree())
     forest.setNextTree()
     selectedTreeLabel.classList.add(forest.getTree())
 }
 
-selectPrevTree = (e) => {
+const selectPrevTree = (e) => {
     selectedTreeLabel.classList.remove(forest.getTree())
     forest.setPrevTree()
     selectedTreeLabel.classList.add(forest.getTree())
 }
 
-openOverlay = (e) => {
+const openOverlay = (e) => {
     document.getElementById("sidepan").style.width = Math.round(document.documentElement.clientWidth * 0.8).toString() + "px"
 }
 
-closeOverlay = (e) => {
+const closeOverlay = (e) => {
     document.getElementById("sidepan").style.width = 0
 }
 
@@ -163,7 +157,7 @@ boxes.forEach(box => {
     box.addEventListener('dragenter', dragEnter)
     box.addEventListener('dragover', dragOver);
     box.addEventListener('dragleave', dragLeave);
-    box.setAttribute('ondrop', "drop(event,this)")
+    box.addEventListener('drop', (e) => drop(e, box))
 })
 openSidebarButton.addEventListener('click', openOverlay)
 closeSidebarButton.addEventListener('click', closeOverlay)
