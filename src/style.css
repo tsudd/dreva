@@ -5,6 +5,7 @@
 @import "./styles/forest.css";
 @import "./styles/tools.css";
 @import "./styles/auth.css";
+@import "./styles/profile.css";
 
 body,
 html {

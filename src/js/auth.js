@@ -1,8 +1,5 @@
 import { UserAuth } from "./firebase.js"
 //buttons inputs
-
-const logInButton = document.querySelector("#login-btn")
-const registerButton = document.querySelector("#register-btn")
 const loginForm = document.querySelector(".login")
 const registerForm = document.querySelector(".register")
 const logInToggle = document.querySelector(".log-in-li")
@@ -17,14 +14,6 @@ const userAuth = new UserAuth()
 
 
 // functions
-const openOverlay = (e) => {
-    document.getElementById("sidepan").style.width = Math.round(document.documentElement.clientWidth * 0.8).toString() + "px"
-}
-
-const closeOverlay = (e) => {
-    document.getElementById("sidepan").style.width = 0
-}
-
 const validateEmail = (mail) => {
     if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail)) {
         return (true)
@@ -62,7 +51,7 @@ loginForm.addEventListener("submit", (e) => {
     userAuth.logInUser({ email: email, password: password })
 })
 
-registerForm, addEventListener("submit", (e) => {
+registerForm.addEventListener("submit", (e) => {
     e.preventDefault();
     let email = registerForm["email"].value
     if (!validateEmail(email)) {
@@ -73,10 +62,21 @@ registerForm, addEventListener("submit", (e) => {
         alert("Password is too short!")
         return false
     }
-    userAuth.signUpUser({ email: email, password: password })
+    let username = registerForm["username"].value
+    if (username.length > 30 || username.length == 0) {
+        alert("Ti dolbaeb")
+        return false
+    }
+    userAuth.signUpUser({ email: email, password: password, username: username })
 })
 
 openSidebarButton.addEventListener('click', openOverlay)
 closeSidebarButton.addEventListener('click', closeOverlay)
 
-
+// onload
+if (userAuth.getUser()) {
+    logUser(userAuth.getUser().displayName)
+    window.location = "profile.html"
+} else {
+    unlogUser()
+}

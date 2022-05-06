@@ -1,3 +1,5 @@
+import { UserAuth } from "./js/firebase.js"
+
 // body
 const body = document.querySelector('body')
 
@@ -23,6 +25,7 @@ const closeSidebarButton = document.querySelector('#closebtn')
 const timer = new CustomTimer(timerLabel);
 const forest = new Field(field)
 const history = new History(historySection, totalTimeLabel)
+const userAuth = new UserAuth()
 let treeGrowingMode = false
 
 
@@ -139,14 +142,6 @@ const selectPrevTree = (e) => {
     selectedTreeLabel.classList.add(forest.getTree())
 }
 
-const openOverlay = (e) => {
-    document.getElementById("sidepan").style.width = Math.round(document.documentElement.clientWidth * 0.8).toString() + "px"
-}
-
-const closeOverlay = (e) => {
-    document.getElementById("sidepan").style.width = 0
-}
-
 // listeners
 nextTreeButton.addEventListener("click", selectNextTree)
 prevTreeButton.addEventListener("click", selectPrevTree)
@@ -161,6 +156,13 @@ boxes.forEach(box => {
 })
 openSidebarButton.addEventListener('click', openOverlay)
 closeSidebarButton.addEventListener('click', closeOverlay)
+
+// onload
+if (userAuth.getUser()) {
+    logUser(userAuth.getUser().displayName)
+} else {
+    unlogUser()
+}
 
 //ONLY FOR TEST PURPOSES
 window.onkeydown = (gfg) => {

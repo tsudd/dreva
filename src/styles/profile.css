@@ -1,0 +1,22 @@
+.profile-head {
+    text-align: start;
+    padding-top: 30px;
+    margin-bottom: 30px;
+}
+
+.info {
+    padding: 50px;
+}
+
+.info__label {
+    margin: 0px;
+}
+
+.info__content {
+    font-size: 1.2em;
+    margin-top: 0;
+    font-style: italic;
+    font-weight: bold;
+}
+
+@media screen and (max-width: 600px) {}
