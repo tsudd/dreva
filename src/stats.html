@@ -14,6 +14,7 @@
         rel="stylesheet">
     <script src="https://www.gstatic.com/firebasejs/ui/6.0.1/firebase-ui-auth.js"></script>
     <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/6.0.1/firebase-ui-auth.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body>
@@ -72,29 +73,15 @@
         <button class="openbtn" id="open-sidebar"><img class="overmenu" src="./assets/bar.png" width="60"
                 height="60"></button>
     </header>
-    <main class="content">
-        <div class="wrapper">
-            <div class="container">
-                <div class="tabs">
-                    <ul>
-                        <li class="log-in-li active">Log in</li>
-                        <li class="register-li">Register</li>
-                    </ul>
-                </div>
-                <form class="login" method="post">
-                    <div class="input-field"><input name="email" type="text" placeholder="E-mail"></div>
-
-                    <div class="input-field"><input name="password" type="password" placeholder="Password"></div>
-                    <div class="timer-btn"><button id="login-btn" class="plant-btn">Log In</button></div>
-                </form>
-                <form class="register" method="post">
-                    <div class="input-field"><input name="username" type="text" placeholder="Username"></div>
-                    <div class="input-field"><input name="email" type="text" placeholder="E-mail"></div>
-
-                    <div class="input-field"><input name="password" type="password" placeholder="Password"></div>
-                    <div class="timer-btn"><button id="register-btn" class="plant-btn">Register</button></div>
-                </form>
-            </div>
+    <main class="stats">
+        <div class="totals">
+            <p class="stats_header">Total time focused</p>
+            <p>Today: <span class="total-num today">0</span> minutes</p>
+            <p>Last week: <span class="total-num week">0</span> minutes</p>
+            <p>Last month: <span class="total-num month">0</span> minutes</p>
+        </div>
+        <div class="month-chart">
+            <canvas id="monthStat"></canvas>
         </div>
     </main>
     <footer class="footer">
@@ -123,7 +110,7 @@
     <script src="./js/keys.js"></script>
     <script src="./js/consts.js"></script>
     <script type="module" src="./js/firebase.js"></script>
-    <script type="module" src="./js/auth.js"></script>
+    <script type="module" src="./js/stats.js"></script>
 </body>
 
 </html>
