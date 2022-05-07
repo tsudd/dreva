@@ -83,6 +83,18 @@ export class CloudStorage {
         let start = new Date()
         start.setUTCHours(0, 0, 0, 0)
         let q = query(collection(this.db, user.email), where("time", ">=", start))
+        return this.execTreeQuery(q)
+    }
+
+    async getMonthTrees(user) {
+        let d = new Date()
+        d.setMonth(d.getMonth() - 1)
+        d.setHours(0, 0, 0, 0)
+        let q = query(collection(this.db, user.email), where("time", ">=", d))
+        return this.execTreeQuery(q)
+    }
+
+    async execTreeQuery(q) {
         let snap = await getDocs(q)
         let records = []
         snap.forEach(doc => {
