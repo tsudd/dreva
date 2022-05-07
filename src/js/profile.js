@@ -1,4 +1,4 @@
-import { UserAuth } from "./firebase.js"
+import { onAuth, UserAuth } from "./firebase.js"
 
 // globals
 const userAuth = new UserAuth()
@@ -29,11 +29,6 @@ closeSidebarButton.addEventListener('click', closeOverlay)
 logoutButton.addEventListener('click', logOut)
 
 //on load
-if (userAuth.getUser()) {
-    let user = userAuth.getUser()
-    logUser(user.displayName)
+onAuth(async (user) => {
     setUpUser(user.displayName, user.email)
-} else {
-    unlogUser()
-    window.location = "auth.html"
-}
+})

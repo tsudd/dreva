@@ -1,4 +1,4 @@
-import { UserAuth } from "./firebase.js"
+import { onAuth, UserAuth } from "./firebase.js"
 //buttons inputs
 const loginForm = document.querySelector(".login")
 const registerForm = document.querySelector(".register")
@@ -48,6 +48,7 @@ loginForm.addEventListener("submit", (e) => {
         alert("Password is too short!")
         return false
     }
+    console.log(228)
     userAuth.logInUser({ email: email, password: password })
 })
 
@@ -64,7 +65,7 @@ registerForm.addEventListener("submit", (e) => {
     }
     let username = registerForm["username"].value
     if (username.length > 30 || username.length == 0) {
-        alert("Ti dolbaeb")
+        alert("Wrong username. Try again.")
         return false
     }
     userAuth.signUpUser({ email: email, password: password, username: username })
@@ -74,9 +75,6 @@ openSidebarButton.addEventListener('click', openOverlay)
 closeSidebarButton.addEventListener('click', closeOverlay)
 
 // onload
-if (userAuth.getUser()) {
-    logUser(userAuth.getUser().displayName)
+onAuth(async (user) => {
     window.location = "profile.html"
-} else {
-    unlogUser()
-}
+})
