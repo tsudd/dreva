@@ -7,13 +7,16 @@ const db = getFirestore(app)
 const auth = getAuth(app)
 
 
-export const onAuth = async (success) => {
+export const onAuth = async (success, failure) => {
     onAuthStateChanged(auth, async (user) => {
         if (user) {
             logUser(user.displayName)
             await success(user)
         } else {
             unlogUser()
+            if (failure != null) {
+                failure()
+            }
         }
     });
 }
@@ -39,7 +42,6 @@ export class UserAuth {
     logInUser(userCredits) {
         signInWithEmailAndPassword(this.auth, userCredits.email, userCredits.password)
             .then((userCredit) => {
-                console.log(userCredit)
                 window.location = "index.html"
             })
             .catch((error) => {

@@ -48,7 +48,6 @@ loginForm.addEventListener("submit", (e) => {
         alert("Password is too short!")
         return false
     }
-    console.log(228)
     userAuth.logInUser({ email: email, password: password })
 })
 
