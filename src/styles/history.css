@@ -2,22 +2,48 @@
     width: 20%;
 }
 
-.records-panel > h1 {
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
-
 .records-panel {
     background-color: rgba(78, 2, 80, 0.1);
     border-radius: 0px;
+    float: left;
     height: 100%;
-    overflow: scroll;
+    width: 100%;
+    position: relative;
+    overflow-y: auto;
 }
 
-.records-panel > ul {
+.history-total {
+    font-size: large;
+    margin-left: 20px;
+    font-weight: bold;
+}
+
+.history-total-time {
+    font-size: 2em;
+    margin-left: 20px;
+    font-weight: bold;
+}
+
+.history-record {
+    margin: 0;
+}
+
+.history-long {
+    font-weight: bold;
+}
+
+.history-time {
+    margin: 0;
+    text-align: end;
+    font-size: xx-small;
+}
+
+.history-records {
+    overflow: auto;
     list-style-type: none;
     margin: 0;
     padding: 0;
+    height: calc(100vh / 1.5);
 }
 
 .records-panel li {
@@ -27,12 +53,12 @@
     padding: 8px;
     border-radius: 5px;
     background-color: rgba(78, 2, 80, 0.3);
-    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
 }
 
 @media screen and (max-width: 600px) {
     .records-panel {
-        margin: 10px;
+        margin: 0px;
         margin-top: 10px;
         max-height: 800px;
         border-radius: 15px;
