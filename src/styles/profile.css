@@ -4,8 +4,8 @@
     margin-bottom: 30px;
 }
 
-.info {
-    padding: 50px;
+.info>* {
+    margin-left: 50px;
 }
 
 .info__label {
@@ -19,4 +19,13 @@
     font-weight: bold;
 }
 
-@media screen and (max-width: 600px) {}
+#logout-btn {
+    width: 25%;
+}
+
+@media screen and (max-width: 600px) {
+    #logout-btn {
+        margin-left: 0;
+        align-self: center;
+    }
+}

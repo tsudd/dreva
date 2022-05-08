@@ -8,6 +8,7 @@ const TREE_SELECTOR = "tree"
 const HOVERED_TREE_SELECTOR = "hovered-tree"
 
 const openOverlay = (e) => {
+    console.log(Math.round(document.documentElement.clientWidth * 0.8).toString())
     document.getElementById("sidepan").style.width = Math.round(document.documentElement.clientWidth * 0.8).toString() + "px"
 }
 

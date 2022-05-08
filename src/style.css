@@ -127,7 +127,7 @@ a {
         right: 0;
         background-color: #ECEBE4;
         overflow: hidden;
-        padding-top: 10pxpx;
+        padding-top: 10px;
         padding-bottom: 20px;
         transition: 0.5s;
         display: flex;
@@ -135,7 +135,7 @@ a {
         justify-content: space-between;
     }
 
-    .sidepanel a {
+    .sidepanel a:not([profile]) {
         padding: 8px 8px 8px 32px;
         text-decoration: none;
         font-size: 55px;
@@ -151,5 +151,20 @@ a {
         font-size: 72px;
         margin-left: 50px;
         text-align: start;
+    }
+
+    .sidepanel #profile {
+        font-size: 30px;
+    }
+
+    #closebtn {
+        margin-left: 50px;
+        margin-top: 50px;
+        font-size: 85px;
+    }
+
+    .overmenu {
+        width: 60px;
+        height: 60px;
     }
 }

@@ -18,11 +18,11 @@
 
 <body>
     <div id="sidepan" class="sidepanel">
-        <a id="closebtn" href="javascript:void(0)" class="close-btn">&times;</a>
+        <div><button id="closebtn" href="javascript:void(0)" class="close-btn">&times;</button></div>
         <ul class="overlay-links">
             <li><a class="header-link" href="index.html">Plant</a></li>
             <li><a class="header-link" href="stats.html">Stats</a></li>
-            <li><a id="profile" class="header-link" href="auth.html" style="font-size: 30px;">Log in/Register</a></li>
+            <li><a id="profile" class="header-link" href="auth.html">Log in/Register</a></li>
         </ul>
         <div class="contacts">
             <ul>
@@ -69,18 +69,17 @@
                         </svg></a></li>
             </ul>
         </nav>
-        <button class="openbtn" id="open-sidebar"><img class="overmenu" src="./assets/bar.png" width="60"
-                height="60"></button>
+        <button class="openbtn" id="open-sidebar"><img class="overmenu" src="./assets/bar.png"></button>
     </header>
     <main class="column info">
         <h1 class="profile-head">Profile</h1>
-        <div>
-            <p class="info__label">User</p>
-            <p id="username-label" class="info__content">None</p>
-            <p class="info__label">Email</p>
-            <p id="email-label" class="info__content">None</p>
-            <button class="plant-btn plant-btn__stop" id="logout-btn">Log Out</button>
-        </div>
+        <dl>
+            <dt class="info__label">User</dt>
+            <dd id="username-label" class="info__content">None</dd>
+            <dt class="info__label">Email</dt>
+            <dd id="email-label" class="info__content">None</dd>
+        </dl>
+        <button class="plant-btn plant-btn__stop" id="logout-btn">Log Out</button>
     </main>
     <footer class="footer">
         <div class="footer_logo"><a class="logo" href="index.html">Dreva</a></div>
