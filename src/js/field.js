@@ -76,6 +76,17 @@ class Field {
         return place
     }
 
+    plantTree(index, tree) {
+        if (index < 0) return
+        if (this.trees[index] !== FREE_PLACE) return
+        this.trees[index] = GROWEN_TREE
+        let place = this.element.querySelector(`#place${index}`)
+        place.className = ''
+        place.classList.add(TREE_SELECTOR)
+        place.classList.add(TREES[tree])
+        return place
+    }
+
     deleteSeed() {
         for (let i = 0; i < this.trees.length; i++) {
             if (this.trees[i] == GROWING_TREE) {

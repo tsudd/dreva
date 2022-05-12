@@ -12,7 +12,8 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap"
         rel="stylesheet">
-    <script type="module" src='main.js'></script>
+    <script src="https://www.gstatic.com/firebasejs/ui/6.0.1/firebase-ui-auth.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/6.0.1/firebase-ui-auth.css" />
 </head>
 
 <body>
@@ -70,83 +71,15 @@
         </nav>
         <button class="openbtn" id="open-sidebar"><img class="overmenu" src="./assets/bar.png"></button>
     </header>
-    <main class="content">
-        <section class="tools column">
-            <div class="timer">
-                <p class="timer-head section-head">Timer</p>
-                <div class="slider"><input id="timer-slider" type="range" min="1" max="90" value="25"></div>
-                <p class="selected-time" id="timing">25</p>
-                <div class="timer-btn"><button id="plant-btn" class="plant-btn">Plant!</button></div>
-            </div>
-            <div class="tree-selector">
-                <p class="section-head">Tree selector</p>
-                <div class="selector">
-                    <div id="next-tree-button" class="next-btn selector_tree-btn"></div>
-                    <div id="selected-tree" class="tree oak selector_tree"></div>
-                    <div id="prev-tree-button" class="prev-btn selector_tree-btn"></div>
-                </div>
-            </div>
-        </section>
-        <section class="forest">
-            <div class="field" id="field">
-                <div class="box">
-                    <div id="place0" class="empty" draggable="true"></div>
-                </div>
-                <div class="box">
-                    <div id="place1" class="empty" draggable="true"></div>
-                </div>
-                <div class="box">
-                    <div id="place2" class="empty" draggable="true"></div>
-                </div>
-                <div class="box">
-                    <div id="place3" class="empty" draggable="true"></div>
-                </div>
-                <div class="box">
-                    <div id="place4" class="empty" draggable="true"></div>
-                </div>
-                <div class="box">
-                    <div id="place5" class="empty" draggable="true"></div>
-                </div>
-                <div class="box">
-                    <div id="place6" class="empty" draggable="true"></div>
-                </div>
-                <div class="box">
-                    <div id="place7" class="empty" draggable="true"></div>
-                </div>
-                <div class="box">
-                    <div id="place8" class="empty" draggable="true"></div>
-                </div>
-                <div class="box">
-                    <div id="place9" class="empty" draggable="true"></div>
-                </div>
-                <div class="box">
-                    <div id="place10" class="empty" draggable="true"></div>
-                </div>
-                <div class="box">
-                    <div id="place11" class="empty" draggable="true"></div>
-                </div>
-                <div class="box">
-                    <div id="place12" class="empty" draggable="true"></div>
-                </div>
-                <div class="box">
-                    <div id="place13" class="empty" draggable="true"></div>
-                </div>
-                <div class="box">
-                    <div id="place14" class="empty" draggable="true"></div>
-                </div>
-                <div class="box">
-                    <div id="place15" class="empty" draggable="true"></div>
-                </div>
-            </div>
-        </section>
-        <section class="history">
-            <div class="records-panel">
-                <p class="section-head">Last seeds</p>
-                <p class="history-total">Total:<span id="total-time" class="history-total-time">0</span></p>
-                <ul class="history-records" id="history">
-                </ul>
-            </div>
-        </section>
+    <main class="column info">
+        <h1 class="profile-head">Profile</h1>
+        <dl>
+            <dt class="info__label">User</dt>
+            <dd id="username-label" class="info__content">None</dd>
+            <dt class="info__label">Email</dt>
+            <dd id="email-label" class="info__content">None</dd>
+        </dl>
+        <button class="plant-btn plant-btn__stop" id="logout-btn">Log Out</button>
     </main>
     <footer class="footer">
         <div class="footer_logo"><a class="logo" href="index.html">Dreva</a></div>
@@ -171,12 +104,10 @@
         </div>
         <p class="legals">Dreva Inc. 2022. All rights reserved</p>
     </footer>
-    <script src="js/keys.js"></script>
-    <script type="module" src="js/firebase.js"></script>
-    <script src='js/field.js'></script>
-    <script src='js/consts.js'></script>
-    <script src='js/timer.js'></script>
-    <script src='js/history.js'></script>
+    <script src="./js/keys.js"></script>
+    <script src="./js/consts.js"></script>
+    <script type="module" src="./js/firebase.js"></script>
+    <script type="module" src="./js/profile.js"></script>
 </body>
 
 </html>

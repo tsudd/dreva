@@ -1,14 +1,11 @@
-// body
-const body = document.querySelector('body')
+import { UserAuth, CloudStorage, onAuth } from "./js/firebase.js"
 
 // containers
 const field = document.querySelector('#field')
-const historyRecords = document.querySelector('#history')
 const timerLabel = document.querySelector('#timing')
 const boxes = document.querySelectorAll('.box')
 
 // buttons, inputs
-const openOverlayButton = document.querySelector('#open-overlay')
 const timeSlider = document.querySelector('#timer-slider')
 const nextTreeButton = document.querySelector('#next-tree-button')
 const prevTreeButton = document.querySelector('#prev-tree-button')
@@ -23,11 +20,13 @@ const closeSidebarButton = document.querySelector('#closebtn')
 const timer = new CustomTimer(timerLabel);
 const forest = new Field(field)
 const history = new History(historySection, totalTimeLabel)
+const userAuth = new UserAuth()
+const storage = new CloudStorage()
 let treeGrowingMode = false
 
 
 // functions
-dragStart = (e) => {
+const dragStart = (e) => {
     e.dataTransfer.setData('text/plain', e.target.id)
     e.dataTransfer.setData('text/html', e.target.outerHTML)
     setTimeout(() => {
@@ -35,42 +34,49 @@ dragStart = (e) => {
     }, 0);
 }
 
-dragEnd = (e) => {
+const dragEnd = (e) => {
     e.target.classList.remove('hide')
 }
 
-dragEnter = (e) => {
+const dragEnter = (e) => {
     e.preventDefault();
     e.target.classList.add('drag-over');
 }
 
-dragOver = (e) => {
+const dragOver = (e) => {
     e.preventDefault();
     e.target.classList.add('drag-over');
 }
 
-dragLeave = (e) => {
+const dragLeave = (e) => {
     e.target.classList.remove('drag-over');
 }
 
-drop = (e, el) => {
-    e.preventDefault();
-    e.target.classList.remove('drag-over');
-    const id = e.dataTransfer.getData('text/plain');
-    const draggable = document.getElementById(id);
-    const initialPlace = draggable.parentNode;
+const drop = async (e, el) => {
+    e.preventDefault()
+    e.target.classList.remove('drag-over')
+    const id = e.dataTransfer.getData('text/plain')
+    const draggable = document.getElementById(id)
+    const initialPlace = draggable.parentNode
     const targetChild = el.firstElementChild
     el.innerHTML = ''
     el.appendChild(draggable)
     initialPlace.appendChild(targetChild)
+    if (userAuth.getUser() !== null) {
+        let newPlace = Array.prototype.indexOf.call(document.getElementById("field").children, el)
+        let draggedRecord = history.getRecordByPlace(Array.prototype.indexOf.call(document.getElementById("field").children, initialPlace))
+        if (draggedRecord === null) return
+        await storage.updateTreePlace(userAuth.getUser(), draggedRecord, newPlace)
+        history.updateRecordPlace(draggedRecord, newPlace)
+    }
 }
 
-handleTimerChange = (e) => {
+const handleTimerChange = (e) => {
     timer.setTimer(e.target.value)
     timerLabel.innerHTML = e.target.value
 }
 
-handlePlantTree = (e) => {
+const handlePlantTree = (e) => {
     toggleMode()
     if (treeGrowingMode) {
         let growing = -1
@@ -86,7 +92,7 @@ handlePlantTree = (e) => {
     }
 }
 
-toggleMode = () => {
+const toggleMode = () => {
     treeGrowingMode = !treeGrowingMode
     if (treeGrowingMode) {
         timeSlider.disabled = true;
@@ -105,53 +111,55 @@ toggleMode = () => {
     }
 }
 
-treeHasGrowen = (ee) => {
+const treeHasGrowen = async (ee) => {
     let tree = forest.setGrowenTree(ee.detail.tree)
-    let record = history.addHistory(ee.detail.time)
+    let record = history.addHistory(ee.detail.time, forest.selectedTree, ee.detail.tree)
 
     tree.addEventListener('dragstart', dragStart)
     tree.addEventListener('dragend', dragEnd)
-
-    handlePoint = (e) => {
-        handleRecordPoint(tree)
+    if (ee.detail.tree > 0) {
+        record.addEventListener('mouseover', (e) => handleRecordPoint(tree))
+        record.addEventListener('mouseleave', (e) => handleRecordLeave(tree))
     }
-
-    handleLeave = (e) => {
-        handleRecordLeave(tree)
+    if (userAuth.getUser() !== null) {
+        let treeId = await storage.postTree(userAuth.getUser(), history.records[history.records.length - 1])
+        history.records[history.records.length - 1].id = treeId
     }
-
-    record.addEventListener('mouseover', handlePoint)
-    record.addEventListener('mouseleave', handleLeave)
     toggleMode()
+    alert("Tree has growen!")
 }
 
-handleRecordPoint = (tree) => {
+const handleRecordPoint = (tree) => {
     tree.classList.add(HOVERED_TREE_SELECTOR)
 }
 
-handleRecordLeave = (tree) => {
+const handleRecordLeave = (tree) => {
     tree.classList.remove(HOVERED_TREE_SELECTOR)
 }
 
-selectNextTree = (e) => {
+const selectNextTree = (e) => {
     selectedTreeLabel.classList.remove(forest.getTree())
     forest.setNextTree()
     selectedTreeLabel.classList.add(forest.getTree())
 }
 
-selectPrevTree = (e) => {
+const selectPrevTree = (e) => {
     selectedTreeLabel.classList.remove(forest.getTree())
     forest.setPrevTree()
     selectedTreeLabel.classList.add(forest.getTree())
 }
 
-openOverlay = (e) => {
-    console.log(window.innerWidth * 0.8)
-    document.getElementById("sidepan").style.width = Math.round(document.documentElement.clientWidth * 0.8).toString() + "px"
-}
+const getTodayTrees = async (user) => {
+    let todayRecords = await storage.getTodayTrees(user)
+    let recordElements = history.generateRecordElementsAndSave(todayRecords)
+    for (let i = 0; i < todayRecords.length; i++) {
+        let tree = forest.plantTree(todayRecords[i].place, todayRecords[i].tree)
+        tree.addEventListener('dragstart', dragStart)
+        tree.addEventListener('dragend', dragEnd)
 
-closeOverlay = (e) => {
-    document.getElementById("sidepan").style.width = 0
+        recordElements[i].addEventListener('mouseover', (e) => handleRecordPoint(tree))
+        recordElements[i].addEventListener('mouseleave', (e) => handleRecordLeave(tree))
+    }
 }
 
 // listeners
@@ -164,10 +172,11 @@ boxes.forEach(box => {
     box.addEventListener('dragenter', dragEnter)
     box.addEventListener('dragover', dragOver);
     box.addEventListener('dragleave', dragLeave);
-    box.setAttribute('ondrop', "drop(event,this)")
+    box.addEventListener('drop', async (e) => await drop(e, box))
 })
 openSidebarButton.addEventListener('click', openOverlay)
 closeSidebarButton.addEventListener('click', closeOverlay)
+await onAuth(async (user) => { await getTodayTrees(user) })
 
 //ONLY FOR TEST PURPOSES
 window.onkeydown = (gfg) => {
