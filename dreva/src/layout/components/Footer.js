@@ -7,8 +7,8 @@ export const Footer = (props) => {
             <div className="footer_logo"><Logo /></div>
             <div className="contacts">
                 <ul>
-                    <li><GitLink /></li>
-                    <li><TelegramLink /></li>
+                    <li><GitLink linkClass="footer-svg header-link" /></li>
+                    <li><TelegramLink linkClass="footer-svg header-link" /></li>
                 </ul>
             </div>
             <p className="legals">Dreva Inc. 2022. All rights reserved</p>

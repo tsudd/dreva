@@ -11,7 +11,7 @@ export const Logo = (props) => {
 export const GitLink = (props) => {
     return (
         <a href="https://github.com/tsudd/dreva">
-            <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" className="header-svg  header-link"
+            <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" className={props.linkClass}
                 viewBox="0 0 512 499.36" role="img">
                 <title>GitHub</title>
                 <path fill="currentColor" fillRule="evenodd"
@@ -25,7 +25,7 @@ export const GitLink = (props) => {
 export const TelegramLink = (props) => {
     return (
         <a href="https://github.com/katetushkan">
-            <svg className="header-svg header-link" width="36" height="36" viewBox="0 0 24 24"
+            <svg className={props.linkClass} width="36" height="36" viewBox="0 0 24 24"
                 xmlns="http://www.w3.org/2000/svg" role="img">
                 <title>Telegram</title>
                 <path fill="currentColor" fillRule="evenodd"
