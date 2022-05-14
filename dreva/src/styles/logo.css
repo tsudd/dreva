@@ -1,0 +1,25 @@
+.logo {
+    font-size: xx-large;
+    color: #ECEBE4;
+    display: flex;
+    justify-content: baseline;
+    align-items: center;
+    margin: 5px;
+    margin-left: 35px;
+}
+
+.logo:hover {
+    color: #bebdb6;
+}
+
+.logo::after {
+    display: block;
+    height: 1em;
+    margin-left: 5px;
+    aspect-ratio: 1 / 1;
+    content: '';
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-image: url("../assets/oak.png");
+    background-position: center;
+}
