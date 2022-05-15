@@ -8,7 +8,7 @@ export class Record {
     }
 }
 
-export class History {
+export class RecordsHistory {
     records = []
     total = 0
 
