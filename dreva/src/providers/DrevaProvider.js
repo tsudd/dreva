@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
 import { initializeApp } from 'firebase/app';
 import { getFirestore } from "firebase/firestore"
-import { getAuth } from "firebase/auth"
+import { getAuth, onAuthStateChanged } from "firebase/auth"
 import { FIREBASE_CONFIG } from "../constants/keys";
 import { CloudStorage, UserAuth } from "../modules/firebase";
 
@@ -27,13 +27,9 @@ export const DrevaProvider = ({ children }) => {
     const db = getFirestore(app)
     const auth = getAuth(app)
 
-    const [user, setUser] = useState(null)
     const [userAuth, setAuth] = useState(new UserAuth(auth))
     const [storage, setStorage] = useState(new CloudStorage(db))
-
-    useEffect(() => {
-        setUser(userAuth.getUser())
-    }, [setUser, userAuth])
+    const [user, setUser] = useState(null)
 
     return (
         <UserContext.Provider value={{ userAuth, setAuth, storage, setStorage, user, setUser }}>

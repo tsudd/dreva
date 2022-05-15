@@ -7,35 +7,39 @@ export class UserAuth {
         this.auth = auth
     }
 
-    signUpUser(userCredits) {
-        createUserWithEmailAndPassword(this.auth, userCredits.email, userCredits.password)
+    async signUpUser(userCredits) {
+        let allGood = false
+        await createUserWithEmailAndPassword(this.auth, userCredits.email, userCredits.password)
             .then((userCredit) => {
                 updateProfile(this.auth.currentUser, { displayName: userCredits.username }).catch(
                     (err) => console.log(err)
                 );
-                window.location = "index.html"
+                allGood = true
             })
             .catch((error) => {
                 alert(error.message)
             })
+        return allGood;
     }
 
-    logInUser(userCredits) {
-        signInWithEmailAndPassword(this.auth, userCredits.email, userCredits.password)
+    async logInUser(userCredits) {
+        let allGood = false
+        await signInWithEmailAndPassword(this.auth, userCredits.email, userCredits.password)
             .then((userCredit) => {
-                window.location = "index.html"
+                allGood = true
             })
             .catch((error) => {
                 alert(error.message)
             })
+        return allGood;
     }
 
     getUser() {
         return this.auth.currentUser;
     }
 
-    logOutUser() {
-        this.auth.signOut()
+    async logOutUser() {
+        await this.auth.signOut()
     }
 
 }
