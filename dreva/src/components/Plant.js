@@ -20,7 +20,7 @@ export const Plant = (props) => {
         onAuthStateChanged(userAuth.auth, async (user) => {
             setUser(user)
         })
-    }, [])
+    }, [userAuth.auth])
 
     useEffect(() => {
         const getTodayTrees = async () => {
@@ -37,7 +37,7 @@ export const Plant = (props) => {
             }
         }
         getTodayTrees()
-    }, [forest, history, user])
+    }, [forest, history, user, storage])
 
     const handleRecordPoint = (tree) => {
         tree.classList.add(HOVERED_TREE_SELECTOR)

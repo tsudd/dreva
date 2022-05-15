@@ -12,7 +12,7 @@ export const Profile = (props) => {
         if (!userAuth && !userAuth.getUser()) {
             navigate(AUTH_ROOT)
         }
-    }, [])
+    }, [navigate, userAuth])
 
     const logOut = async (e) => {
         await userAuth.logOutUser()

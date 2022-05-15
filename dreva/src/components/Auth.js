@@ -8,10 +8,11 @@ import { PLANTING_ROOT } from "../constants/roots";
 
 export const Auth = (props) => {
     const [loginForm, setForm] = useState(true)
-    const { userAuth, user, setUser } = useDreva()
+    const { userAuth, setUser } = useDreva()
     const navigate = useNavigate()
 
     const validateEmail = (mail) => {
+        // eslint-disable-next-line
         if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail)) {
             return (true)
         }

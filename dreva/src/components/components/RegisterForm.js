@@ -19,7 +19,7 @@ export const RegisterForm = (props) => {
             return false
         }
         let username = form["username"].value
-        if (username.length > 30 || username.length == 0) {
+        if (username.length > 30 || username.length === 0) {
             alert("Wrong username. Try again.")
             return false
         }

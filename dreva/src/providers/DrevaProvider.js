@@ -1,7 +1,7 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import { initializeApp } from 'firebase/app';
 import { getFirestore } from "firebase/firestore"
-import { getAuth, onAuthStateChanged } from "firebase/auth"
+import { getAuth } from "firebase/auth"
 import { FIREBASE_CONFIG } from "../constants/keys";
 import { CloudStorage, UserAuth } from "../modules/firebase";
 

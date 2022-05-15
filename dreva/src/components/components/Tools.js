@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { PLANT_BUTTON_LABEL, PLANT_STOP_SELECTOR, STOP_BUTTON_LABEL } from "../../constants/labels";
-import { Field } from "../../modules/field";
 import { CustomTimer } from "../../modules/timer";
 
 export const Tools = (props) => {

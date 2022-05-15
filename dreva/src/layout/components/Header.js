@@ -6,7 +6,7 @@ import { useDreva } from "../../providers/DrevaProvider";
 import { GitLink, Logo, TelegramLink } from "./Logo";
 
 export const Header = (props) => {
-    const { userAuth, user } = useDreva()
+    const { userAuth } = useDreva()
     const [userComponent, setUserComponent] = useState(
         <Link className="header-link" to={AUTH_ROOT} id="profile">Log In/Register</Link>
     )
@@ -21,7 +21,7 @@ export const Header = (props) => {
                 setUserComponent(<Link className="header-link" to={AUTH_ROOT} id="profile">Log In/Register</Link>)
             }
         })
-    }, [])
+    }, [userAuth.auth])
 
     const openOverlay = () => {
         document.getElementById("sidepan").style.width = Math.round(document.documentElement.clientWidth * 0.8).toString() + "px"

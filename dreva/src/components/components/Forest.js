@@ -1,5 +1,4 @@
-import React, { useEffect } from "react";
-import { Field } from "../../modules/field";
+import React from "react";
 
 export const Forest = (props) => {
 

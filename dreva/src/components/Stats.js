@@ -23,7 +23,7 @@ ChartJS.register(
 );
 
 export const Stats = (props) => {
-    const { storage, userAuth, user } = useDreva()
+    const { storage, userAuth } = useDreva()
     const [dataSet, setDataset] = useState({
         labels: [],
         data: []
@@ -34,7 +34,7 @@ export const Stats = (props) => {
         onAuthStateChanged(userAuth.auth, async (user) => {
             setAuth(user)
         })
-    }, [])
+    }, [userAuth.auth])
 
     useEffect(() => {
         if (!localAuth) return
@@ -94,7 +94,7 @@ export const Stats = (props) => {
             monthTotalLabel.innerHTML = monthTotal.toString()
         }
         render(localAuth)
-    }, [localAuth])
+    }, [localAuth, storage])
 
     const data = {
         labels: dataSet.labels,
