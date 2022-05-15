@@ -5,7 +5,8 @@
 }
 
 .stats {
-    padding: 50px;
+    /* padding: 50px; */
+    width: 100%;
     float: left;
     display: flex;
     justify-content: center;
