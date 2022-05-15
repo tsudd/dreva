@@ -24,7 +24,7 @@ export class CustomTimer {
                 this.success = true
                 await success({
                     tree: tree,
-                    time: this.timeLong
+                    time: parseInt(this.timeLong)
                 })
                 clearInterval(this.interval)
             }

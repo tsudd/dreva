@@ -11,6 +11,7 @@ import {
 import { Bar } from 'react-chartjs-2';
 import { PageLayout } from "../layout/PageLayout";
 import { useDreva } from "../providers/DrevaProvider";
+import { onAuthStateChanged } from "@firebase/auth";
 
 ChartJS.register(
     CategoryScale,
@@ -22,14 +23,21 @@ ChartJS.register(
 );
 
 export const Stats = (props) => {
-    const { storage, userAuth } = useDreva()
+    const { storage, userAuth, user } = useDreva()
     const [dataSet, setDataset] = useState({
         labels: [],
         data: []
     })
+    const [localAuth, setAuth] = useState(null)
 
     useEffect(() => {
-        if (!userAuth.getUser()) return
+        onAuthStateChanged(userAuth.auth, async (user) => {
+            setAuth(user)
+        })
+    }, [])
+
+    useEffect(() => {
+        if (!localAuth) return
         const todayTotalLabel = document.querySelector(".today")
         const weekTotalLabel = document.querySelector(".week")
         const monthTotalLabel = document.querySelector(".month")
@@ -46,9 +54,10 @@ export const Stats = (props) => {
 
             let day = new Date()
             day.setUTCHours(0, 0, 0, 0)
-            for (let i = records.length - 1, j = dates.length - 1; i >= 0 && j >= 0; i--) {
+            for (let i = records.length - 1, j = dates.length - 1; i >= 0 && j >= 0;) {
                 if (records[i].time >= day) {
-                    minutesPerDay[j] += records[i].long
+                    minutesPerDay[j] += parseInt(records[i].long)
+                    i--
                 } else {
                     day.setDate(day.getDate() - 1)
                     j--
@@ -57,12 +66,6 @@ export const Stats = (props) => {
             setDataset({
                 labels: dates,
                 data: minutesPerDay
-                // datasets: [{
-                //     label: 'Minutes per day',
-                //     backgroundColor: 'rgb(255, 99, 132)',
-                //     borderColor: 'rgb(255, 99, 132)',
-                //     data: minutesPerDay
-                // }]
             }
             )
         }
@@ -90,8 +93,8 @@ export const Stats = (props) => {
             weekTotalLabel.innerHTML = weekTotal.toString()
             monthTotalLabel.innerHTML = monthTotal.toString()
         }
-        render(userAuth.getUser())
-    }, [])
+        render(localAuth)
+    }, [localAuth])
 
     const data = {
         labels: dataSet.labels,
@@ -108,7 +111,7 @@ export const Stats = (props) => {
 
     return (
         <PageLayout>
-            <main className="stats">
+            {localAuth ? <main className="stats">
                 <div className="totals">
                     <p className="stats_header">Total time focused</p>
                     <p>Today: <span className="total-num today">0</span> minutes</p>
@@ -119,6 +122,9 @@ export const Stats = (props) => {
                     <Bar data={data} />
                 </div>
             </main>
+                :
+                <div>Log in to see your data</div>}
+
         </PageLayout>
     )
 }
