@@ -1,0 +1,41 @@
+.totals {
+    align-self: center;
+    margin-top: 0 !important;
+    width: 30%;
+}
+
+.stats {
+    /* padding: 50px; */
+    width: 100%;
+    float: left;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding-bottom: 150px;
+}
+
+.stats_header {
+    text-align: center;
+    font-size: 1.3em;
+    font-weight: bold;
+}
+
+.total-num {
+    font-size: 1.3em;
+    font-weight: bold;
+    font-style: italic;
+}
+
+.month-chart {
+    padding: 0px 70px 0px 70px;
+}
+
+@media screen and (max-width: 600px) {
+    .month-chart {
+        padding: 0;
+    }
+
+    .stats {
+        padding: 0;
+    }
+}
